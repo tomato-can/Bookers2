@@ -1,0 +1,38 @@
+
+<div class="container">
+	<% if flash[:notice] %>
+		<div style="color: limegreen;">
+			<%= flash[:notice] %>
+		</div>
+	<% end %>
+	<% if flash[:alert] %>
+		<div style="color: limegreen;">
+			<%= flash[:notice] %>
+		</div>
+	<% end %>
+	<div class="row">
+		<div class="col-md-3">
+			<%= render 'users/profile', user: @post_comment.user, book: @book_new %>
+		</div>
+		<div class="col-md-9">
+			<h3>Comment detail</h3>
+			<%= form_for [@post_comment.book, @post_comment] do |f| %>
+			<table class="table">
+				<tbody>
+					<tr>
+						<td><%= attachment_image_tag @post_comment.user, :profile_image, fallback: 'no_image.jpg', size: (5*5) %>
+							<%= @post_comment.user.name %>
+						</td>
+					</tr>
+					<tr><td><%= f.text_area :comment, class:"form-control", rows:"5" %></td></tr>
+					<tr>
+						<td><%= f.submit "Update", class: "btn btn-success" %>
+						    <%= link_to "Destroy", book_post_comment_path(@post_comment.book_id, @post_comment.id), method: :delete, class: "btn btn-danger" %>
+						</td>
+					</tr>
+				</tbody>
+			</table>
+			<% end %>
+		</div>
+	</div>
+</div>

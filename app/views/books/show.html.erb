@@ -32,6 +32,30 @@
 					</tr>
 				</tbody>
 			</table>
+
+			<%= form_for [@book, @post_comment_new] do |f| %>
+			<div>
+				<h3>Comment</h3>
+				<%= f.text_area :comment, rows: '5', placeholder:'Comment here!', class:"form-control" %>
+				<%= f.submit 'Submit', class:"btn btn-info" %>
+			</div>
+			<% end %>
+
+			<div>
+				<h3>Comments</h3>
+				<% @book.post_comments.each do |comment| %>
+				<table class="table">
+					<tr>
+						<td><%= attachment_image_tag comment.user, :profile_image, size:(8*8), fallback:"no_image.jpg" %></td>
+						<td><%= comment.user.name %></td>
+						<td><%= comment.comment %></td>
+						<% if current_user.id == comment.user.id %>
+						<td><%= link_to "Edit&Destroy", edit_book_post_comment_path(@book.id, comment.id) %></td>
+						<% end %>
+					</tr>
+				</table>
+				<% end %>
+			</div>
 		</div>
 	</div>
 </div>
