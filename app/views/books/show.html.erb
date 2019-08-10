@@ -33,6 +33,25 @@
 				</tbody>
 			</table>
 
+			<div class="row">
+				<h3 class="col-md-4">Favorited by <%= @book.favorites.count %> people</h3>
+				<% if @book.favorited_by?(current_user) %>
+					<h3 class="col-md-1">
+						<%= link_to book_favorites_path(@book), method: :delete do %>
+							<span class="glyphicon glyphicon-heart" aria-hidden="true" style="color:red;"></span>
+						<% end %>
+					</h3>
+				<% else %>
+					<h3 class="col-md-1">
+						<%= link_to book_favorites_path(@book), method: :post do %>
+						<span class="glyphicon glyphicon-heart" aria-hidden="true" style="color:gray;"></span>
+						<% end %>
+					</h3>
+				<% end %>
+				<h3 class="col-mf-offset-3">
+					<%= link_to "Who likes this!", book_favorites_path(@book) %></h3>
+			</div>
+
 			<%= form_for [@book, @post_comment_new] do |f| %>
 			<div>
 				<h3>Comment</h3>
@@ -42,12 +61,13 @@
 			<% end %>
 
 			<div>
-				<h3>Comments</h3>
+				<h3>Commented by <%= @book.post_comments.count %>people</h3>
 				<% @book.post_comments.each do |comment| %>
 				<table class="table">
 					<tr>
-						<td><%= attachment_image_tag comment.user, :profile_image, size:(8*8), fallback:"no_image.jpg" %></td>
-						<td><%= comment.user.name %></td>
+						<td><%= attachment_image_tag comment.user, :profile_image, size:(8*8), fallback:"no_image.jpg" %><br>
+							<%= comment.user.name %>
+						</td>
 						<td><%= comment.comment %></td>
 						<% if current_user.id == comment.user.id %>
 						<td><%= link_to "Edit&Destroy", edit_book_post_comment_path(@book.id, comment.id) %></td>

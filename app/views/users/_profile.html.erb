@@ -2,8 +2,21 @@
 		<div>
 			<h3>User info</h3>
 		</div>
-		<div>
-			<%= attachment_image_tag user, :profile_image,fallback:"no_image.jpg", size:(8*8) %>
+		<div class="row">
+			<div class="col-md-8">
+				<%= attachment_image_tag user, :profile_image,fallback:"no_image.jpg", size:(8*8) %>
+			</div>
+			<% if current_user != user %>
+				<% if user.followed_by?(current_user) %>
+					<div class="col-md-4 text-right">
+						<%= link_to "Unfollow", user_relationships_path(user.id), method: :delete, class: "btn btn-default" %>
+					</div>
+				<% else %>
+					<div class="col-md-4 text-right">
+						<%= link_to "Follow", user_relationships_path(user.id), method: :post, class: "btn btn-info" %>
+					</div>
+				<% end %>
+			<% end %>
 		</div>
 		<table class="table table-condensed">
 				<tr>
@@ -14,7 +27,30 @@
 					<th>introduction</th>
 					<td><%= user.introduction %></td>
 				</tr>
+				<tr>
+					<th>
+						<%= link_to follows_user_path(user.id), class: "profile-link" do %>
+							Following
+						<% end %>
+					</th>
+					<td><%= user.followings.count %></td>
+				</tr>
+				<tr>
+					<th>
+						<%= link_to followers_user_path(user.id), class: "profile-link" do %>
+							Followers
+							<% end %>
+					</th>
+					<td><%= user.followers.count %></td>
+				</tr>
 		</table>
+
+		<style>
+			.profile-link {
+				color: skyblue;
+			}
+		</style>
+
 		<% if user == current_user %>
 			<%= link_to edit_user_path(current_user.id), class: "btn btn-default text-center btn-block" do %>
 				<i class="fas fa-wrench"></i>

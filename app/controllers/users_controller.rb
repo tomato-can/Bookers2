@@ -29,6 +29,18 @@ class UsersController < ApplicationController
 	    @users = User.all
 	end
 
+	def follows
+		user = User.find(params[:id])
+		@follows = user.followings.all
+		@book_new = Book.new
+	end
+
+	def followers
+		user = User.find(params[:id])
+		@followers = user.followers.all
+		@book_new = Book.new
+	end
+
 	private
 
 	def user_params
