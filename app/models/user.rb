@@ -9,10 +9,10 @@ class User < ApplicationRecord
   has_many :favorites, dependent: :destroy
 
   has_many :active_relationships, class_name: "Relationship", foreign_key: :following_id
-  has_many :followings, through: :active_relationships, source: :follower
+  has_many :followings, through: :active_relationships, source: :follower// active_relationship側からfollowerのidを取って来て、followingにいれてね　=　フォローしてる人たち
 
   has_many :passive_relationships, class_name: "Relationship", foreign_key: :follower_id
-  has_many :followers, through: :passive_relationships, source: :following
+  has_many :followers, through: :passive_relationships, source: :following// passive_relationship側からfollowingのid取って来て、followerにいれてね　=　自分のフォロワー
 
   validates :name, presence: true, length: {minimum: 2, maximum: 20}
   validates :introduction, length: {maximum: 50}

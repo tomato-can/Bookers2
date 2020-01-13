@@ -11,69 +11,97 @@
 
   <body>
     <header>
-      <div class="container-fluid" style="background-color: black;">
-        <div class="row">
-            <h1 class="col-md-2 col-md-offset-1" style="color: white;">Bookers</h1>
+      <div class="container-fluid" style="background-color: black; height: 64px;">
+        <div class="row" style="height: 64px;">
+            <div class="col-md-2 col-md-offset-1" style="text-align: center;">
+              <h2 style="color: white; margin: 0px; padding: 17px 0px 17px 0px; height: 64px;">Bookers</h2>
+            </div>
             <div class="col-md-offset-3 col-md-6">
-              <ul id="top-nav" class=" nav nav-pills nav-justified">
+              <ul id="top-nav">
                 <% if user_signed_in? %>
                   <li>
                     <%= link_to user_path(current_user.id) do %>
-                    <i class="fas fa-home"></i>
-                    <span>Home</span>
+                      <div class="capsule">
+                        <i class="fas fa-home"></i>
+                        <span>Home</span>
+                      </div>
                     <% end %>
                   </li>
                   <li>
                     <%= link_to users_path do %>
-                    <i class="fas fa-user"></i>
-                    <span>Users</span>
+                      <div class="capsule">
+                        <i class="fas fa-user"></i>
+                        <span>Users</span>
+                      </div>
                     <% end %>
                   </li>
                   <li>
                     <%= link_to books_path do %>
-                    <i class="fas fa-book"></i>
-                    <span>Books</span>
+                      <div class="capsule">
+                        <i class="fas fa-book"></i>
+                        <span>Books</span>
+                      </div>
                     <% end %>
                   </li>
                   <li>
                     <%= link_to destroy_user_session_path, method: :delete do %>
-                    <i class="fas fa-sign-out-alt"></i>
-                    <span>Log out</span>
+                      <div class="capsule">
+                        <i class="fas fa-sign-out-alt"></i>
+                        <span>Log out</span>
+                      </div>
                     <% end %>
                   </li>
-                  <% else %>
+                <% else %>
                   <li>
                     <%= link_to root_path do %>
-                    <i class="fas fa-home"></i>
-                    <span>Home</span>
+                      <div class="capsule">
+                        <i class="fas fa-home"></i>
+                        <span>Home</span>
+                      </div>
                     <% end %>
                   </i>
                   <li>
                     <%= link_to home_about_path do %>
-                    <i class="fas fa-link"></i>
-                    <span>About</span>
+                      <div class="capsule">
+                        <i class="fas fa-link"></i>
+                        <span>About</span>
+                      </div>
                     <% end %>
                   </li>
                   <li>
                     <%= link_to new_user_registration_path do %>
-                    <i class="fas fa-edit"></i>
-                    <span>Sign Up</span>
+                      <div class="capsule">
+                        <i class="fas fa-edit"></i>
+                        <span>Sign Up</span>
+                      </div>
                     <% end %>
                   </li>
                   <li>
                     <%= link_to new_user_session_path do %>
-                    <i class="fas fa-sign-in-alt"></i>
-                    <span>Log in</span>
+                      <div class="capsule">
+                        <i class="fas fa-sign-in-alt"></i>
+                        <span>Log in</span>
+                      </div>
                     <% end %>
                   </li>
                 <% end %>
               </ul>
 
               <style>
+                .capsule{
+                  padding: 0px 36px 0px 36px;
+
+                }
+                #top-nav{
+                  list-style: none;
+                  margin: 0px;
+                  padding: 0px;
+                }
                 #top-nav li{
                   color: white;
                   font-size: 20px;
-                  line-height: 63px;
+                  line-height: 64px;
+                  display: inline-block;
                 }
               </style>
             </div>
